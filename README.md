@@ -1,358 +1,362 @@
-# Data-Structure-2
-1.Write a C++ program to implement singly linked list
-#include<iostream>
-#include<cstdlib>
-using namespace std;
-struct node
-{
-int info;
-struct node *next;
-}*start;
-class single_llist
-{
-public:
-node* create_node(int);
-void insert_begin();
-void insert_last();
-void insert_pos();
-void delete_begin();
-void delete_last();
-void delete_pos();
-void search();
-void display();
-single_llist()
-{
-start = NULL;
-}
-};
-.0
-int main()
-{
-int choice;
-single_llist sl,s2;
-start = NULL;
-do
-{
-cout<<"1.Insert at first"<<endl;
-cout<<"2.Insert at last"<<endl;
-cout<<"3.Insert at position"<<endl;
-cout<<"4.Delete at first"<<endl;
-cout<<"5.Delete at Last"<<endl;
-cout<<"6.Delete at position"<<endl;
-cout<<"7.Search"<<endl;
-cout<<"8.Display"<<endl;
-cout<<"9.Exit "<<endl;
-cout<<"Enter your choice :";
-cin>>choice;
-switch(choice)
-{
-case 1: sl.insert_begin();
-sl.display();
-break;
-case 2: sl.insert_last();
-sl.display();
-break;
-case 3: sl.insert_pos();
-sl.display();
-break;
-case 4: s2.delete_begin();
-sl.display();
-break;
-case 5: s2.delete_last();
-sl.display();
-break;
-case 6: sl.delete_pos();
-sl.display();
-break;
-case 7:sl.search();
-sl.display();
-break;
-case 8:sl.display();
-break;
-case 9:exit(0);
-break;
-default:cout<<"Wrong choice...???"<<endl;
-break;
-}
-}
-while(choice != 9);
-}
-node *single_llist::create_node(int value)
-{
-struct node *temp, *s;
-temp = new(struct node);
-if (temp == NULL)
-{
-cout<<"Memory not allocated"<<endl;
-return 0;
-}
-else
-{
-temp->info = value;
-temp->next = NULL;
-return temp;
-}
-}
-void single_llist::insert_begin()
-{
-int value;
-cout<<"Enter the value to be inserted : ";
-cin>>value;
-struct node *temp, *s;
-temp = create_node(value);
-if (start == NULL)
-{
-start = temp;
-start->next = NULL;
-cout<<temp->info<<" is inserted at first in the empty list"<<endl;
-}
-else
-{
-s = start;
-start = temp;
-start->next = s;
-cout<<temp->info<<" is inserted at first"<<endl;
-}
-}
-void single_llist::insert_last()
-{
-int value;
-cout<<"Enter the value to be inserted : ";
-cin>>value;
-struct node *temp, *s;
-temp = create_node(value);
-if (start == NULL)
-{
-start = temp;
-start->next = NULL;
-cout<<temp->info<<" is inserted at last in the empty list"<<endl;
-}
-else
-{
-s = start;
-while (s->next != NULL)
-{
-s = s->next;
-}
-temp->next = NULL;
-s->next = temp;
-cout<<temp->info<<" is inserted at last"<<endl;
-}
-}
-void single_llist::insert_pos()
-{
-int value, pos, counter = 0, loc = 1;
-struct node *temp, *s, *ptr;
-s = start;
-while (s != NULL)
-{
-s = s->next;
-counter++;
-}
-if (counter == 0){}
-else
-{
-cout<<"Enter the postion from "<<loc<<" to "<<counter+1<<" : ";
-cin>>pos;
-s = start;
-if(pos == 1)
-{
-cout<<"Enter the value to be inserted : ";
-cin>>value;
-temp = create_node(value);
-start = temp;
-start->next = s;
-cout<<temp->info<<" is inserted at first"<<endl;
-}
-else if (pos > 1 && pos <= counter)
-{
-cout<<"Enter the value to be inserted : ";
-cin>>value;
-temp = create_node(value);
-for (int i = 1; i < pos; i++)
-{
-ptr = s;
-s = s->next;
-}
-ptr->next = temp;
-temp->next = s;
-cout<<temp->info<<" is inserted at position "<<pos<<endl;
-}
-else if (pos == counter+1)
-{
-cout<<"Enter the value to be inserted : ";
-cin>>value;
-temp = create_node(value);
-while (s->next != NULL)
-{
-s = s->next;
-}
-temp->next = NULL;
-s->next = temp;
-cout<<temp->info<<" is inserted at last"<<endl;
-}
-else
-{
-cout<<"Positon out of range...!!!"<<endl;
-}
-}
-}
-void single_llist::delete_begin()
-{
-if (start == NULL){}
-else
-{
-struct node *s, *ptr;
-s = start;
-start = s->next;
-cout<<s->info<<" deleted from first"<<endl;
-free(s);
-}
-}
-void single_llist::delete_last()
-{
-int i, counter = 0;
-struct node *s, *ptr;
-if (start == NULL){}
-else
-{
-s = start;
-while (s != NULL)
-{
-s = s->next;
-counter++;
-}
-s = start;
-if (counter == 1)
-{
-start = s->next;
-cout<<s->info<<" deleted from last"<<endl;
-free(s);
-}
-else
-{
-for (i = 1;i < counter;i++)
-{
-ptr = s;
-s = s->next;
-}
-ptr->next = s->next;
-cout<<s->info<<" deleted from last"<<endl;
-free(s);
-}
-}
-}
-void single_llist::delete_pos()
-{
-int pos, i, counter = 0, loc = 1;
-struct node *s, *ptr;
-s = start;
-while (s != NULL)
-{
-s = s->next;
-counter++;
-}
-if (counter == 0){}
-else
-{
-if (counter == 1)
-{
-cout<<"Enter the postion [ SAY "<<loc<<" ] : ";
-cin>>pos;
-s = start;
-if (pos == 1)
-{
-start = s->next;
-cout<<s->info<<" deleted from first"<<endl;
-free(s);
-}
-else
-cout<<"Position out of range...!!!"<<endl;
-}
-else
-{
-cout<<"Enter the postion from "<<loc<<" to "<<counter<<" : ";
-cin>>pos;
-s = start;
-if (pos == 1)
-{
-start = s->next;
-cout<<s->info<<" deleted from first"<<endl;
-free(s);
-}
-else if (pos > 1 && pos <= counter)
-{
-for (i = 1;i < pos;i++)
-{
-ptr = s;
-s = s->next;
-}
-ptr->next = s->next;
-if(pos == counter)
-{cout<<s->info<<" deleted from last"<<endl;
-free(s);}
-else
-{cout<<s->info<<" deleted from postion "<<pos<<endl;
-free(s);}
-}
-else
-cout<<"Position out of range...!!!"<<endl;
-}
-}
-}
-void single_llist::search()
-{
-int value, loc = 0, pos = 0, counter = 0;
-struct node *s;
-s = start;
-while (s != NULL)
-{
-s = s->next;
-counter++;
-}
-if (start == NULL){}
-else
-{
-cout<<"Enter the value to be searched : ";
-cin>>value;
-struct node *s;
-s = start;
-while (s != NULL)
-{
-pos++;
-if (s->info == value)
-{
-loc++;
-if(loc == 1)
-cout<<"Element "<<value<<" is found at position "<<pos;
-else if(loc <= counter)
-cout<<" , "<<pos;
-}
-s = s->next;
-}
-cout<<endl;
-if (loc == 0)
-cout<<"Element "<<value<<" not found in the list"<<endl;
-}
-}
-void single_llist::display()
-{
-struct node *temp;
-if (start == NULL)
-cout<<"Linked list is empty...!!!"<<endl;
-else
-{
-cout<<"Linked list contains : ";
-temp = start;
-while (temp != NULL)
-{
-cout<<temp->info<<" ";
-temp = temp->next;
-}
-cout<<endl;
-}
-}
+# Data-Structure-2<br>
+Program 1:<br>
+----------------------------------------------------<br>
+1.Write a C++ program to implement singly linked list<br>
+#include<iostream><br>
+#include<cstdlib><br>
+using namespace std;<br>
+struct node<br>
+{<br>
+int info;<br>
+struct node *next;<br>
+}*start;<br>
+class single_llist<br>
+{<br>
+public:<br>
+node* create_node(int);<br>
+void insert_begin();<br>
+void insert_last();<br>
+void insert_pos();<br>
+void delete_begin();<br>
+void delete_last();<br>
+void delete_pos();<br>
+void search();<br>
+void display();<br>
+single_llist()<br>
+{<br>
+start = NULL;<br>
+}<br>
+};<br>
+.0<br>
+int main()<br>
+{<br>
+int choice;<br>
+single_llist sl,s2;<br>
+start = NULL;<br>
+do<br>
+{<br>
+cout<<"1.Insert at first"<<endl;<br>
+cout<<"2.Insert at last"<<endl;<br>
+cout<<"3.Insert at position"<<endl;<br>
+cout<<"4.Delete at first"<<endl;<br>
+cout<<"5.Delete at Last"<<endl;<br>
+cout<<"6.Delete at position"<<endl;<br>
+cout<<"7.Search"<<endl;<br>
+cout<<"8.Display"<<endl;<br>
+cout<<"9.Exit "<<endl;<br>
+cout<<"Enter your choice :";<br>
+cin>>choice;<br>
+switch(choice)<br>
+{<br>
+case 1: sl.insert_begin();<br>
+sl.display();<br>
+break;<br>
+case 2: sl.insert_last();<br>
+sl.display();<br>
+break;<br>
+case 3: sl.insert_pos();<br>
+sl.display();<br>
+break;<br>
+case 4: s2.delete_begin();<br>
+sl.display();<br>
+break;<br>
+case 5: s2.delete_last();<br>
+sl.display();<br>
+break;<br>
+case 6: sl.delete_pos();<br>
+sl.display();<br>
+break;<br>
+case 7:sl.search();<br>
+sl.display();<br>
+break;<br>
+case 8:sl.display();<br>
+break;<br>
+case 9:exit(0);<br>
+break;<br>
+default:cout<<"Wrong choice...???"<<endl;<br>
+break;<br>
+}<br>
+}<br>
+while(choice != 9);<br>
+}<br>
+node *single_llist::create_node(int value)<br>
+{<br>
+struct node *temp, *s;<br>
+temp = new(struct node);<br>
+if (temp == NULL)<br>
+{<br>
+cout<<"Memory not allocated"<<endl;<br>
+return 0;<br>
+}<br>
+else<br>
+{<br>
+temp->info = value;<br>
+temp->next = NULL;<br>
+return temp;<br>
+}<br>
+}<br>
+void single_llist::insert_begin()<br>
+{<br>
+int value;<br>
+cout<<"Enter the value to be inserted : ";<br>
+cin>>value;<br>
+struct node *temp, *s;<br>
+temp = create_node(value);<br>
+if (start == NULL)<br>
+{<br>
+start = temp;<br>
+start->next = NULL;<br>
+cout<<temp->info<<" is inserted at first in the empty list"<<endl;<br>
+}<br>
+else<br>
+{<br>
+s = start;<br>
+start = temp;<br>
+start->next = s;<br>
+cout<<temp->info<<" is inserted at first"<<endl;<br>
+}<br>
+}<br>
+void single_llist::insert_last()<br>
+{<br>
+int value;<br>
+cout<<"Enter the value to be inserted : ";<br>
+cin>>value;<br>
+struct node *temp, *s;<br>
+temp = create_node(value);<br>
+if (start == NULL)<br>
+{<br>
+start = temp;<br>
+start->next = NULL;<br>
+cout<<temp->info<<" is inserted at last in the empty list"<<endl;<br>
+}<br>
+else<br>
+{<br>
+s = start;<br>
+while (s->next != NULL)<br>
+{<br>
+s = s->next;<br>
+}<br>
+temp->next = NULL;<br>
+s->next = temp;<br>
+cout<<temp->info<<" is inserted at last"<<endl;<br>
+}<br>
+}<br>
+void single_llist::insert_pos()<br>
+{<br>
+int value, pos, counter = 0, loc = 1;<br>
+struct node *temp, *s, *ptr;<br>
+s = start;<br>
+while (s != NULL)<br>
+{<br>
+s = s->next;<br>
+counter++;<br>
+}<br>
+if (counter == 0){}<br>
+else<br>
+{<br>
+cout<<"Enter the postion from "<<loc<<" to "<<counter+1<<" : ";<br>
+cin>>pos;<br>
+s = start;<br>
+if(pos == 1)<br>
+{<br>
+cout<<"Enter the value to be inserted : ";<br>
+cin>>value;<br>
+temp = create_node(value);<br>
+start = temp;<br>
+start->next = s;<br>
+cout<<temp->info<<" is inserted at first"<<endl;<br>
+}<br>
+else if (pos > 1 && pos <= counter)<br>
+{<br>
+cout<<"Enter the value to be inserted : ";<br>
+cin>>value;<br>
+temp = create_node(value);<br>
+for (int i = 1; i < pos; i++)<br>
+{<br>
+ptr = s;<br>
+s = s->next;<br>
+}<br>
+ptr->next = temp;<br>
+temp->next = s;<br>
+cout<<temp->info<<" is inserted at position "<<pos<<endl;<br>
+}<br>
+else if (pos == counter+1)<br>
+{<br>
+cout<<"Enter the value to be inserted : ";<br>
+cin>>value;<br>
+temp = create_node(value);<br>
+while (s->next != NULL)<br>
+{<br>
+s = s->next;<br>
+}<br>
+temp->next = NULL;<br>
+s->next = temp;<br>
+cout<<temp->info<<" is inserted at last"<<endl;<br>
+}<br>
+else<br>
+{<br>
+cout<<"Positon out of range...!!!"<<endl;<br>
+}<br>
+}<br>
+}<br>
+void single_llist::delete_begin()<br>
+{<br>
+if (start == NULL){}<br>
+else<br>
+{<br>
+struct node *s, *ptr;<br>
+s = start;<br>
+start = s->next;<br>
+cout<<s->info<<" deleted from first"<<endl;<br>
+free(s);<br>
+}<br>
+}<br>
+void single_llist::delete_last()<br>
+{<br>
+int i, counter = 0;<br>
+struct node *s, *ptr;<br>
+if (start == NULL){}<br>
+else<br>
+{<br>
+s = start;<br>
+while (s != NULL)<br>
+{<br>
+s = s->next;<br>
+counter++;<br>
+}<br>
+s = start;<br>
+if (counter == 1)<br>
+{<br>
+start = s->next;<br>
+cout<<s->info<<" deleted from last"<<endl;<br>
+free(s);<br>
+}<br>
+else<br>
+{<br>
+for (i = 1;i < counter;i++)<br>
+{<br>
+ptr = s;<br>
+s = s->next;<br>
+}<br>
+ptr->next = s->next;<br>
+cout<<s->info<<" deleted from last"<<endl;<br>
+free(s);<br>
+}<br>
+}<br>
+}<br>
+void single_llist::delete_pos()<br>
+{<br>
+int pos, i, counter = 0, loc = 1;<br>
+struct node *s, *ptr;<br>
+s = start;<br>
+while (s != NULL)<br>
+{<br>
+s = s->next;<br>
+counter++;<br>
+}<br>
+if (counter == 0){}<br>
+else<br>
+{<br>
+if (counter == 1)<br>
+{<br>
+cout<<"Enter the postion [ SAY "<<loc<<" ] : ";<br>
+cin>>pos;<br>
+s = start;<br>
+if (pos == 1)<br>
+{<br>
+start = s->next;<br>
+cout<<s->info<<" deleted from first"<<endl;<br>
+free(s);<br>
+}<br>
+else<br>
+cout<<"Position out of range...!!!"<<endl;<br>
+}<br>
+else<br>
+{<br>
+cout<<"Enter the postion from "<<loc<<" to "<<counter<<" : ";<br>
+cin>>pos;<br>
+s = start;<br>
+if (pos == 1)<br>
+{<br>
+start = s->next;<br>
+cout<<s->info<<" deleted from first"<<endl;<br>
+free(s);<br>
+}<br>
+else if (pos > 1 && pos <= counter)<br>
+{<br>
+for (i = 1;i < pos;i++)<br>
+{<br>
+ptr = s;<br>
+s = s->next;<br>
+}<br>
+ptr->next = s->next;<br>
+if(pos == counter)<br>
+{cout<<s->info<<" deleted from last"<<endl;<br>
+free(s);}<br>
+else<br>
+{cout<<s->info<<" deleted from postion "<<pos<<endl;<br>
+free(s);}<br>
+}<br>
+else<br>
+cout<<"Position out of range...!!!"<<endl;<br>
+}<br>
+}<br>
+}<br>
+void single_llist::search()<br>
+{<br>
+int value, loc = 0, pos = 0, counter = 0;<br>
+struct node *s;<br>
+s = start;<br>
+while (s != NULL)<br>
+{<br>
+s = s->next;<br>
+counter++;<br>
+}<br>
+if (start == NULL){}<br>
+else<br>
+{<br>
+cout<<"Enter the value to be searched : ";<br>
+cin>>value;<br>
+struct node *s;<br>
+s = start;<br>
+while (s != NULL)<br>
+{<br>
+pos++;<br>
+if (s->info == value)<br>
+{<br>
+loc++;<br>
+if(loc == 1)<br>
+cout<<"Element "<<value<<" is found at position "<<pos;<br>
+else if(loc <= counter)<br>
+cout<<" , "<<pos;<br>
+}<br>
+s = s->next;<br>
+}<br>
+cout<<endl;<br>
+if (loc == 0)<br>
+cout<<"Element "<<value<<" not found in the list"<<endl;<br>
+}<br>
+}<br>
+void single_llist::display()<br>
+{<br>
+struct node *temp;<br>
+if (start == NULL)<br>
+cout<<"Linked list is empty...!!!"<<endl;<br>
+else<br>
+{<br>
+cout<<"Linked list contains : ";<br>
+temp = start;<br>
+while (temp != NULL)<br>
+{<br>
+cout<<temp->info<<" ";<br>
+temp = temp->next;<br>
+}<br>
+cout<<endl;<br>
+}<br>
+}<br>
 
+Program 2:
+-------	--------------------------------------------------
 2.Write a C++ program to implement doubly linked list.
 #include<stdio.h>
 	#include<stdlib.h>
@@ -632,6 +636,8 @@ cout<<endl;
 	}
 	}
 
+Program 3:
+-------------------------------------------------------------------------------------------------------------------------------
 3.Write a C++ program to split the linked list into two halves such that the element ‘e’ should be the first element of second list.
 #include<iostream>
 using namespace std;
@@ -707,6 +713,8 @@ temp = temp->next;
 return 0;
 }
 
+Program 4:
+---------------------------------------------------------------------------------------------------------------------------------
 4.Find the subset of a given set S = {S1,S2,S3,………,Sn} OF ‘n’ positive integers whose sum is equal to a given positive integer d.
 #include<iostream>
 using namespace std;
@@ -756,6 +764,9 @@ void display(int count)
  cout<<set[i];
  cout<<"}";
 }
+	
+Program 5:
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
 5.Write a program to create a WAP to store a k keys into an array of size n at the location compute using a hash function, loc=key%n, where k<=n and key takes values from [1 to m], m>n. Handle the collision using Linear Probing technique.
 #include <bits/stdc++.h>
 
@@ -973,10 +984,8 @@ return 0;
 
 }
 
-
-
-
-
+Program 6:
+-----------------------------------------------------------------------
 6.Write a program to Insert into and Delete from a Binary Search Tree.
 #include<iostream>
 using namespace std;
@@ -1116,6 +1125,8 @@ void BST::display(node *ptr, int level)
  } 
 }
 
+Program 7:
+----------------------------------------------------------------------------------------
 7.Finding minimum and maximum from given unsorted array by using divide conquer method.
 #include <iostream>
 using namespace std;
@@ -1177,6 +1188,9 @@ MinMax(arr, 0, n - 1, min, max);
 cout<<"The minimum array element is "<<min<<endl;
 cout<<"The maximum array element is "<<max;
 }
+	
+Program 8:
+------------------------------------------------------------------
 8.Create a program to merge sort using divide and conquer array.
 #include <iostream>
 using namespace std;
@@ -1257,6 +1271,8 @@ cout<<"->"<<arr[i];
 return 0;
 }
 
+Program 9:
+---------------------------------------------------------------------------
 9.Write a C++ program for solving the N-Queen’s Problem using backtracking.
 #include<iostream>
 using namespace std;
@@ -1336,6 +1352,8 @@ cout << endl;
 return 0;
 }
 
+Program 10:
+--------------------------------------------------------------------------------
 10.Write a program to implement breadth first search for undirected graph (BFS).
 #include<iostream>
 #include <list>
@@ -1414,6 +1432,8 @@ int main()
  return 0;
 }
 
+Program 11:
+-----------------------------------------------------------------------------
 11.Write a program to implement depth first search for undirected graph (DFS).
 #include <bits/stdc++.h>
 using namespace std;
